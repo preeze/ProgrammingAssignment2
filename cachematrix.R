@@ -1,8 +1,4 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
-
+## Creates a mutable holder for matrix values together with its inverse
 makeCacheMatrix <- function(x = matrix()) {
     inv <- NULL
     
@@ -17,9 +13,9 @@ makeCacheMatrix <- function(x = matrix()) {
     list(set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
-
-## Write a short comment describing this function
-
+## Obtains an inverse for matrix x.
+## If the inverse has already been calculated, simply retrieves it from the cache;
+## otherwise calculates the value and caches it for future.
 cacheSolve <- function(x, ...) {
     ## Return a matrix that is the inverse of 'x'
     inv <- x$getinv()
@@ -33,3 +29,13 @@ cacheSolve <- function(x, ...) {
     }
     inv
 }
+
+# check inverse calculation and caching logic
+src <- matrix(c(1, 2, 3, 4), 2, 2)
+cacheSrc <- makeCacheMatrix(src)
+# when executed, the first message shall say 'Calculating inverse' and
+# all the subsequent ones must yield 'Getting cached inverse'.
+# Inverse matrix will be printed out each time and they all shall be equal.
+cacheSolve(cacheSrc)
+cacheSolve(cacheSrc)
+cacheSolve(cacheSrc)
